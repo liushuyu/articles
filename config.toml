@@ -35,5 +35,5 @@ maintained_with_love = false
 footer_links = [
     {url = "$BASE_URL/about", name = "About"},
     {url = "$BASE_URL/atom.xml", name = "RSS"},
-    {url = "https://github.com/carpetscheme/lightspeed", name = "Source on Github"},
+    {url = "https://github.com/liushuyu/articles", name = "Source on Github"},
 ]

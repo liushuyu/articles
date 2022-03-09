@@ -135,10 +135,13 @@ int main() {
 
 那么我们就这么写一下 `rint` 家族的函数吧：
 
-```asm
+```bash
 rint:
+  # 从 FPU 寄存器 fa0 使用动态舍入模式（dyn）复制数值到 GPR a0
   FCVT.L.D a0,  fa0, dyn
+  # 从 GPR a0 使用动态舍入模式（dyn）复制数值到 FPU 寄存器 ft0
   FCVT.D.L ft0,  a0, dyn
+  # 从 ft0 复制数值到 fa0，并使用来自 fa0 的正负号（矫正复制 -0.0 的行为）
   FSGNJ.D  fa0, ft0, fa0
   RET
 
@@ -169,7 +172,7 @@ long double rintl(long double x);
 
 这种先进的设计带来了一个大麻烦，就是硬件 `long double` 支持仅能在 RISC-V 的 `Q` 拓展下使用。但是，Q 拓展不在 RISC-V `riscv64gc` 的范畴中。
 
-我去 GNU LibC (GLibc) 那边看了一眼，发现他/她们也在使用软件四精度浮点。
+我去 GNU LibC (GLibc) 那边看了一眼，发现他/她们也在使用软件四精度浮点（同样也不遵守舍入模式）。
 
 ### 未完待续……？
 

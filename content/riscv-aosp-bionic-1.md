@@ -133,10 +133,13 @@ That... doesn't seem to be **the** solution, but nevertheless, **a** solution.
 
 So let's implement the `rint`-family of functions like this:
 
-```asm
+```bash
 rint:
+  # copy from FPU register fa0 to GPR a0 with dynamic rounding mode
   FCVT.L.D a0,  fa0, dyn
+  # copy from GPR a0 to FPU ft0 with dynamic rounding mode
   FCVT.D.L ft0,  a0, dyn
+  # copy value from ft0 to fa0 while preserving sign bit (e.g. handles -0.0)
   FSGNJ.D  fa0, ft0, fa0
   RET
 
@@ -167,7 +170,7 @@ For RISC-V though, according to [RISC-V C ABI Specification](https://riscv.org/w
 
 This pose a huge issue, where hardware `long double` support is only possible with RISC-V `Q` extension, which is outside of the RISC-V `riscv64gc` specification.
 
-I have looked at GNU LibC (GLibc) implementation of this, and it seems like they are using the software only implementation.
+I have looked at GNU LibC (GLibc) implementation of this, and it seems like they are using the software only implementation (also does not respect rounding mode).
 
 ### To be continued...?
 

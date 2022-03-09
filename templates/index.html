@@ -1,0 +1,5 @@
+{% extends "lightspeed/templates/index.html" %}
+
+{% block taglines %}
+{%- if config.extra.zola or config.extra.zola is undefined -%}{{ trans(key="build_with", lang=lang)| safe }}{%- endif -%}
+{% endblock %}

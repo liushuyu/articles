@@ -1,0 +1,39 @@
+# The URL the site will be built for
+base_url = "https://liushuyu.xyz"
+
+author = "liushuyu"
+compile_sass = true
+
+theme = "lightspeed"
+
+# Whether to build a search index to be used later on by a JavaScript library
+build_search_index = false
+
+[languages.en]
+title = "liushuyu's blog"
+
+[languages.en.translations]
+build_with = "Built with <a href=\"https://www.getzola.org/\">Zola</a>"
+
+[languages.zh]
+title = "liushuyu 博客"
+
+[languages.zh.translations]
+build_with = "使用 <a href=\"https://www.getzola.org/\">Zola</a> 生成"
+
+[markdown]
+# Whether to do syntax highlighting
+# Theme can be customised by setting the `highlight_theme` variable to a theme supported by Zola
+highlight_code = true
+
+[extra]
+# Put all your custom variables here
+zola = true
+netlify = false
+maintained_with_love = false
+
+footer_links = [
+    {url = "$BASE_URL/about", name = "About"},
+    {url = "$BASE_URL/atom.xml", name = "RSS"},
+    {url = "https://github.com/carpetscheme/lightspeed", name = "Source on Github"},
+]

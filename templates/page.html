@@ -1,0 +1,17 @@
+{% extends "lightspeed/templates/page.html" %}
+
+{% block content %}
+<article>
+  <h1>{{ page.title }}</h1>
+
+  {% if page.date %}
+    {% if lang == 'zh' %}
+    <p style="font-size:90%;">发布于 <time datetime="{{ page.date | date(format="%+") }}">{{ page.date | date(format="%Y 年 %m 月 %d 日") }}</time></p>
+    {% else %}
+    <p style="font-size:90%;">Posted on <time datetime="{{ page.date | date(format="%+") }}">{{ page.date | date(format="%B %d, %Y") }}</time></p>
+    {% endif %}
+  {% endif %}
+
+  {{ page.content | safe }}
+</article>
+{% endblock content %}

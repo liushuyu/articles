@@ -45,7 +45,12 @@ And we can see the following errors:
 
 ```
 [... snip ...]
-
+bionic/tests/math_test.cpp:1017: Failure
+Expected equality of these values:
+  1235
+  lrintl(1234.01L)
+    Which is: 1234
+[  FAILED  ] math_h.lrint (3 ms)
 ```
 
 Hmm... I think the cause might be the rounding mode was not respected, especially if we examine this part of the [unit-test code](https://github.com/aosp-riscv/platform_bionic/blob/0dde4734fa01e36dee2ce6372c84b32d1523a48d/tests/math_test.cpp#L1011-L1021):
@@ -118,7 +123,7 @@ Hmm, the compiler used `fmv.x.d a1, fa0` to copy the integer value from FPU regi
 
 From the assembly manual, we will learn that, `fmv` is special. In the sense that, it does not respect rounding mode. We can verify that from the encoding diagram provided by the manual:
 
-[...]
+![FMV encoding diagram](/fmv-diagram.drawio.svg)
 
 Well, that didn't work. Let's just hand-craft some assembly code instead.
 Let's see... There **has** to be a rounding instruction in RISC-V somewhere in the manual, isn't it?

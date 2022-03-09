@@ -45,7 +45,12 @@ cd bionic/host
 
 ```
 [... 略 ...]
-
+bionic/tests/math_test.cpp:1017: Failure
+Expected equality of these values:
+  1235
+  lrintl(1234.01L)
+    Which is: 1234
+[  FAILED  ] math_h.lrint (3 ms)
 ```
 
 哎呀，看来舍入模式（rounding mode）的处理上有点问题。我们首先了解一下[单元测试代码](https://github.com/aosp-riscv/platform_bionic/blob/0dde4734fa01e36dee2ce6372c84b32d1523a48d/tests/math_test.cpp#L1011-L1021)是怎么写的吧：
@@ -119,7 +124,7 @@ int main() {
 
 我们可以从汇编手册上得知，`fmv` 这个指令比较特殊：它并不吃舍入模式的标记。汇编手册上的编码示意图也证实了这一点：
 
-[...]
+![FMV 编码示意图](/fmv-diagram.drawio.svg)
 
 啊这，那我们直接手撸汇编吧。
 手边有一本（电子版）汇编手册就是好，我们可以直接搜索一下舍入指令是哪一个。
@@ -152,7 +157,7 @@ rintf:
 long double rintl(long double x);
 ```
 
-Can we apply the previous knowledge here? *\*叹气\** I hope we could.
+我们能根据以前的经验照着葫芦画个瓢么？*\*叹气\** 好像不太行……
 
 ### `long double` 的那些事
 

@@ -1,5 +1,30 @@
 {% extends "lightspeed/templates/index.html" %}
 
+{% block header %}
+    <header role="banner">
+    <h3 style="margin-top:0;">
+        <a href="{{ config.base_url | safe }}" title="Home">{{ config.title }}</a>
+        <br /><small>{{ config.description }}</small>
+    </h3>
+    {% set translations = page.translations|default(value=section.translations|default(value='')) %}
+    {% if translations != '' %}
+        {% for translation in translations %}
+            {% set name = trans(key="language", lang=translation.lang) %}
+            {% if translation.lang == lang %}
+            {{ name }}
+            {% else %}
+            <a href="{{ translation.permalink }}">{{ name }}</a>
+            {% endif %}
+            {% if loop.last %}{% else %}
+              <span>&middot;</span>
+            {% endif %}
+        {% endfor %}
+    {% endif %}
+    <span></span>
+    </header>
+    <hr />
+{% endblock header %}
+
 {% block taglines %}
 {%- if config.extra.zola or config.extra.zola is undefined -%}{{ trans(key="build_with", lang=lang)| safe }}{%- endif -%}
 {% endblock %}

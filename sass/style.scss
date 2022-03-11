@@ -1,0 +1,48 @@
+@import '_light';
+@media (prefers-color-scheme: dark), (prefers-color-scheme: no-preference) {
+	@import '_dark';
+}
+@media (prefers-color-scheme: light) {
+	@import '_light';
+}
+a:hover {
+	text-decoration: underline;
+}
+main {
+	margin: auto;
+	max-width: 38rem;
+	padding: 0.8rem;
+}
+pre {
+	background: white;
+	overflow: scroll;
+	padding: 1rem;
+}
+td {
+	border: 1px solid #2d2d2d;
+	padding: 10px;
+}
+code > table > tbody > tr > td {
+    border: 0;
+    padding: 0;
+}
+img {
+	height: auto;
+	max-width: 100%;
+}
+.homepage-list {
+	list-style: none;
+	padding: 1rem 0;
+}
+.homepage-list li {
+	align-items: center;
+	display: flex;
+	flex-wrap: wrap;
+	justify-content: space-between;
+	margin-bottom: 10px;
+}
+@media (max-width: 38rem) {
+	.homepage-list li a {
+		width: 100%;
+	}
+}

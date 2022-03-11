@@ -9,6 +9,7 @@ theme = "lightspeed"
 generate_feed = true
 # Whether to build a search index to be used later on by a JavaScript library
 build_search_index = false
+minify_html = true
 
 [languages.en]
 title = "liushuyu's blog"
